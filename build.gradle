@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.kageiit:ekstazi-gradle-plugin:0.1.0"
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+group 'com.tora'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+allprojects {
+    apply plugin: "com.kageiit.ekstazi"
+
+    ekstazi {
+        version = '5.3.0' // The version of ekstazi to use
+        forceFailing = true // Forces re-running failing tests always
+        mode = 'junit' // junit is the default. For other modes, see http://www.ekstazi.org/agent.html
+        extraOptions = "root.dir=/tmp/.ekstazi,dependencies.nio=true"
+//        extraOptions = "dependencies.nio=true,debug=false,debug.mode=EVERYWHERE,x.enabled=true,root.dir=/tmp/.ekstazi"
+//        extraOptions = "force.all=true,dependencies.nio=true,debug=true,debug.mode=EVERYWHERE,x.enabled=true,root.dir=/tmp/.ekstazi"
+    }
+}
